@@ -1,0 +1,21 @@
+<div class="input-container">
+  <div class="input-field">
+    <p-floatlabel variant="on">
+      <label>{{ label() }}</label>
+      <input
+        pInputText
+        [type]="fieldType()"
+        [formControl]="control()"
+        fluid="true"
+      />
+    </p-floatlabel>
+  </div>
+
+  @if (control().touched && control().errors?.['required']) {
+  <div class="input-error-message">
+    <p-message size="small" variant="simple" severity="error">
+      {{ label() }} is required
+    </p-message>
+  </div>
+  }
+</div>

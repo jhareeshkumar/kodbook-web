@@ -1,0 +1,16 @@
+a{
+    text-decoration: none;
+    color: green;
+    cursor: pointer;
+}
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  height: 75vh;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+}

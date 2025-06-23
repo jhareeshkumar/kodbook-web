@@ -1,0 +1,11 @@
+<p-menubar [model]="items">
+  <ng-template pTemplate="end">
+    <app-base-button
+      [label]="null"
+      (click)="toggleDarkMode()"
+      [icon]="'pi pi-moon'"
+      [variant]="'outlined'"
+    >
+    </app-base-button>
+  </ng-template>
+</p-menubar>

@@ -1,1 +1,42 @@
-<p>login works!</p>
+<div class="login-container">
+  <div class="login-card">
+    <p-card
+      header="Login"
+      subheader="Please Login to KodBook Social Media Web App"
+    >
+      <div class="login-form">
+        <form [formGroup]="loginForm" (submit)="login()">
+          <div class="form-field">
+            <app-text-input
+              [label]="'Username'"
+              [control]="loginForm.controls['username']"
+            >
+            </app-text-input>
+          </div>
+          <div class="form-field">
+            <app-password-input
+              [control]="loginForm.controls['password']"
+              [showClear]="true"
+            >
+            </app-password-input>
+          </div>
+          <div class="form-field">
+            <app-base-button
+              [icon]="'pi pi-user'"
+              [label]="'Login'"
+              [type]="'submit'"
+              [fluid]="true"
+            >
+            </app-base-button>
+          </div>
+          <div class="login-footer">
+            <p-divider>
+              <span>Don't have an account? </span>
+              <a routerLink="/auth/register">Sign Up</a>
+            </p-divider>
+          </div>
+        </form>
+      </div>
+    </p-card>
+  </div>
+</div>
