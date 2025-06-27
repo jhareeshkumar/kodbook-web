@@ -1,0 +1,13 @@
+export * from './auth.service';
+import { AuthService } from './auth.service';
+export * from './authAPIV2.service';
+import { AuthAPIV2Service } from './authAPIV2.service';
+export * from './internalUserProfileAPI.service';
+import { InternalUserProfileAPIService } from './internalUserProfileAPI.service';
+export * from './registrationController.service';
+import { RegistrationControllerService } from './registrationController.service';
+export * from './userControllerV2.service';
+import { UserControllerV2Service } from './userControllerV2.service';
+export * from './userManagement.service';
+import { UserManagementService } from './userManagement.service';
+export const APIS = [AuthService, AuthAPIV2Service, InternalUserProfileAPIService, RegistrationControllerService, UserControllerV2Service, UserManagementService];

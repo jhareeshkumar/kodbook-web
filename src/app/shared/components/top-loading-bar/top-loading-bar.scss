@@ -1,0 +1,12 @@
+.top-loading-bar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+}
+
+p-progressbar{
+    --p-progressbar-background: transparent;
+    --p-progressbar-height: 4px;
+}
