@@ -7,21 +7,46 @@ import { RouterLink } from '@angular/router';
 import { DividerModule } from 'primeng/divider';
 import { PasswordInput } from '../../../shared/components/input-fields/password-input/password-input';
 
+import { AuthRequest } from '../../../core/api-client';
+import { Auth } from '../../../core/services/auth/auth';
+
 @Component({
   selector: 'app-login',
-  imports: [CardModule,TextInput,ReactiveFormsModule,BaseButton,RouterLink,DividerModule
-    ,PasswordInput
+  imports: [
+    CardModule,
+    TextInput,
+    ReactiveFormsModule,
+    BaseButton,
+    RouterLink,
+    DividerModule,
+    PasswordInput,
+
   ],
   templateUrl: './login.html',
-  styleUrl: './login.scss'
+  styleUrl: './login.scss',
 })
 export class Login {
   formBuilder = inject(FormBuilder);
-  login() {
-    console.log(this.loginForm.value);
-  }
+  private authService = inject(Auth);
+
+
   loginForm = this.formBuilder.group({
-    username: ['',Validators.required],
-    password: [,Validators.required]
+    username: ['', Validators.required],
+    password: [, Validators.required],
   });
+
+
+  getPayload() {
+    const authRequest: AuthRequest = {
+      username: this.loginForm.controls.username.value || '',
+      password: this.loginForm.controls.password.value || '',
+    };
+    return authRequest;
+  }
+
+  login() {
+    if (this.loginForm.valid) {
+      this.authService.login(this.getPayload());
+    }
+  }
 }
