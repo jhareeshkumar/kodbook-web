@@ -9,6 +9,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
 import { authInterceptor } from './core/interceptors/auth/auth-interceptor';
 import { errorInterceptor } from './core/interceptors/error/error-interceptor';
+import { httpLoadingInterceptor } from './core/interceptors/http-loading/http-loading-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,7 +18,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimationsAsync(),
-    provideHttpClient(withInterceptors([authInterceptor, errorInterceptor])),
+    provideHttpClient(withInterceptors([authInterceptor, errorInterceptor,httpLoadingInterceptor])),
     providePrimeNG({
       theme: {
         preset: Aura,

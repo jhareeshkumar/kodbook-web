@@ -1,16 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
 import { BaseButton } from '../base-button/base-button';
+import { ThemeService } from '../../../core/services/theme/theme.service';
 
 @Component({
   selector: 'app-auth-header',
-  imports: [MenubarModule,BaseButton],
+  imports: [MenubarModule, BaseButton],
   templateUrl: './auth-header.html',
   styleUrl: './auth-header.scss'
 })
 export class AuthHeader {
-items: MenuItem[] = [
+
+  private themeService = inject(ThemeService);
+
+  items: MenuItem[] = [
     {
       label: 'Login',
       icon: 'pi pi-sign-in',
@@ -24,7 +28,6 @@ items: MenuItem[] = [
   ];
 
   toggleDarkMode() {
-    const element = document.querySelector('html');
-    element?.classList.toggle('my-app-dark');
+    this.themeService.toggleDarkMode();
   }
 }

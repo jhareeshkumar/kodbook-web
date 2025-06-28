@@ -6,20 +6,43 @@ import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Rout
 })
 export class RouteLoadingService {
 
-  private loading = signal(false);
+  private routeLoading = signal(false);
 
-  isloading:Signal<boolean>  = this.loading.asReadonly();
+  private apiLoading = signal(false);
+
+  isRouteloading:Signal<boolean>  = this.routeLoading.asReadonly();
+
+  isApiloading:Signal<boolean>  = this.apiLoading.asReadonly();
+
+  private progress = signal(0);
+
+  progressValue:Signal<number> = this.progress.asReadonly();
 
   constructor(private router:Router) {
     this.router.events.subscribe((event)=>{
       if (event instanceof NavigationStart) {
-       this.loading.set(true);
+       this.routeLoading.set(true);
       }
       if(event instanceof NavigationEnd || event instanceof NavigationCancel || event instanceof NavigationError){
         setTimeout(() => {
-           this.loading.set(false);
-        }, 600);
+           this.routeLoading.set(false);
+        }, 400);
       }
     });
    }
+
+
+  start() {
+    this.apiLoading.set(true);
+    this.progress.set(0);
+}
+
+  complete() {
+    for (let i = 0; i <= 100; i++) {
+      this.progress.update(()=>this.progress() + 1);
+      setTimeout(() => {
+        this.apiLoading.set(false);
+      }, 1000);
+    }
+  }
 }
