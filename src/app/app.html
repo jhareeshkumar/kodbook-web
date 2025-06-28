@@ -1,5 +1,9 @@
-@if (isLoading()) {
+@if (isRouteLoading()) {
 <app-top-loading-bar></app-top-loading-bar>
+} @else if(isApiLoading()) {
+<app-top-loading-bar [mode]="'determinate'" [value]="progressValue()">
+</app-top-loading-bar>
 }
+
 <app-toast></app-toast>
 <router-outlet />
