@@ -10,14 +10,15 @@
 import { HttpHeaders, HttpParams, HttpParameterCodec } from '@angular/common/http';
 import { CustomHttpParameterCodec } from './encoder';
 import { Configuration } from './configuration';
+import { environment } from '../../../environments/environment';
 
 export class BaseService {
-    protected basePath = 'http://localhost:8081';
+    protected basePath = environment.apiBaseUrl;
     public defaultHeaders = new HttpHeaders();
     public configuration: Configuration;
     public encoder: HttpParameterCodec;
 
-    constructor(basePath?: string|string[], configuration?: Configuration) {
+    constructor(basePath?: string | string[], configuration?: Configuration) {
         this.configuration = configuration || new Configuration();
         if (typeof this.configuration.basePath !== 'string') {
             const firstBasePath = Array.isArray(basePath) ? basePath[0] : undefined;

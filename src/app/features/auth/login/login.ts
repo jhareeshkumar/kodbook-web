@@ -47,6 +47,8 @@ export class Login {
   login() {
     if (this.loginForm.valid) {
       this.authService.login(this.getPayload());
+    } else {
+      this.loginForm.markAllAsTouched();
     }
   }
 }
