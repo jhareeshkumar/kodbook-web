@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "generate-client": "openapi-generator-cli generate -i ./src/app/core/api-contract/openapi.yaml -g typescript-angular -o src/app/core/api-client --skip-validate-spec"
+    "generate-client": "openapi-generator-cli generate -i ./src/app/core/api-contract/api-docs.yaml -g typescript-angular -o src/app/core/api-client --skip-validate-spec"
   },
   "private": true,
   "dependencies": {

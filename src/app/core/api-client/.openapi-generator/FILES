@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 README.md
 api.base.service.ts
 api.module.ts
@@ -7,7 +6,6 @@ api/api.ts
 api/auth.service.ts
 api/authAPIV2.service.ts
 api/internalUserProfileAPI.service.ts
-api/registrationController.service.ts
 api/userControllerV2.service.ts
 api/userManagement.service.ts
 configuration.ts

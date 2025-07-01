@@ -4,7 +4,7 @@ import { Feed } from './features/feed/feed';
 import { AuthLayout } from './layout/auth-layout/auth-layout';
 import { Login } from './features/auth/login/login';
 import { authGuard } from './shared/guards/auth-guard';
-import { Register } from './features/auth/register/register';
+import { SignUp } from './features/auth/sign-up/sign-up';
 
 export const routes: Routes = [
     {
@@ -32,8 +32,8 @@ export const routes: Routes = [
                 component: Login
             },
             {
-                path: 'register',
-                component: Register
+                path: 'sign-up',
+                component: SignUp
             }
         ]
     }
