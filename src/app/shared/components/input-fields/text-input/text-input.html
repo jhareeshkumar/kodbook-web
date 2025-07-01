@@ -1,12 +1,14 @@
 <div class="input-container">
   <div class="input-field">
     <p-floatlabel variant="on">
-      <label>{{ label() }}</label>
+      <label for="{{ label() }}">{{ label() }}</label>
       <input
         pInputText
+        [id]="label()"
         [type]="fieldType()"
         [formControl]="control()"
         fluid="true"
+        [autocomplete]="autocomplete()"
       />
     </p-floatlabel>
   </div>

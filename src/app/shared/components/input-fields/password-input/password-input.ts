@@ -28,4 +28,5 @@ export class PasswordInput {
   feedback = input<boolean>(false);
   control = input.required<FormControl>();
   icon = input<string>();
+  autocomplete = input<string>('');
 }

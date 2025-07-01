@@ -10,6 +10,7 @@
             <app-text-input
               [label]="'Username'"
               [control]="loginForm.controls['username']"
+              [autocomplete]="'username'"
             >
             </app-text-input>
           </div>
@@ -17,6 +18,7 @@
             <app-password-input
               [control]="loginForm.controls['password']"
               [showClear]="true"
+              [autocomplete]="'current-password'"
             >
             </app-password-input>
           </div>
@@ -32,7 +34,7 @@
           <div class="login-footer">
             <p-divider>
               <span>Don't have an account? </span>
-              <a routerLink="/auth/register">Sign Up</a>
+              <a routerLink="/auth/signup">Sign Up</a>
             </p-divider>
           </div>
         </form>

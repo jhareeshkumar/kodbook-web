@@ -21,4 +21,5 @@ export class TextInput {
   control = input<FormControl>(new FormControl());
 
   fieldType = input<string>('text');
+  autocomplete = input<string>('');
 }

@@ -1,7 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { MessageService, ToastMessageOptions } from 'primeng/api';
+import { Component } from '@angular/core';
 import { ToastModule } from 'primeng/toast';
-import { ToastService } from '../../../core/services/toast/toast.service';
 
 @Component({
   selector: 'app-toast',
@@ -12,6 +10,6 @@ import { ToastService } from '../../../core/services/toast/toast.service';
 export class Toast {
 
   toastBreakpoints = {
-    '480px': { width: '95%', left: 'auto', right: 'auto' },
+    '480px': { width: '90%', left: '5%', right: '5%' },
   };
 }
