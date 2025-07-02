@@ -21,9 +21,9 @@ export class AuthHeader {
       routerLink: '/auth/login'
     },
     {
-      label: 'Signup',
+      label: 'Sign Up',
       icon: 'pi pi-user-plus',
-      routerLink: '/auth/signup'
+      routerLink: '/auth/sign-up'
     }
   ];
 

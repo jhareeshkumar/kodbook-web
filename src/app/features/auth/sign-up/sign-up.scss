@@ -1,0 +1,16 @@
+a{
+    text-decoration: none;
+    color: green;
+    cursor: pointer;
+}
+.sign-up-container {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  height: 75vh;
+}
+
+.sign-up-card {
+  width: 100%;
+  max-width: 400px;
+}

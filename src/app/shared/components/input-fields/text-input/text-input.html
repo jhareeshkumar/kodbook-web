@@ -16,7 +16,13 @@
   @if (control().touched && control().errors?.['required']) {
   <div class="input-error-message">
     <p-message size="small" variant="simple" severity="error">
-      {{ label() }} is required
+      {{ label() }} is required.
+    </p-message>
+  </div>
+  } @if (control().touched && control().errors?.['email']) {
+  <div class="input-error-message">
+    <p-message size="small" variant="simple" severity="error">
+      {{ label() }} is not valid.
     </p-message>
   </div>
   }
