@@ -1,0 +1,600 @@
+openapi: 3.1.0
+info:
+  title: KodBook API
+  description: This is the API documentation for KodBook.
+  contact:
+    name: KodBook Support
+    url: https://kodbook.com
+    email: support@kodbook.com
+  version: 1.0.0
+servers:
+- url: http://localhost:8081
+  description: Generated server url
+security:
+- basicAuth: []
+  bearerAuth: []
+tags:
+- name: auth
+  description: Public APIs for Authentication
+- name: Auth API V2
+  description: Endpoints for authentication and authorization
+- name: User Management
+  description: APIs for User Management
+- name: Internal User Profile API
+  description: Endpoints for internal user profile management
+- name: user
+  description: Public APIs for User Management
+paths:
+  /api/v2/auth/password:
+    put:
+      tags:
+      - Auth API V2
+      summary: Update password
+      description: Allows authenticated users to update their password after OTP verification
+      operationId: updatePassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChangePasswordRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+  /internal/api/v3/users:
+    post:
+      tags:
+      - Internal User Profile API
+      summary: Create User Profile
+      description: Creates a new user profile with the provided details.
+      operationId: createUserProfile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserProfileRegisterDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponseUserProfileRegisterDto"
+  /api/v3/auth/register:
+    post:
+      tags:
+      - auth
+      operationId: register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponseAuthUserDto"
+  /api/v3/auth/login:
+    post:
+      tags:
+      - auth
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginResponse"
+  /api/v2/auth/password/request-otp:
+    post:
+      tags:
+      - Auth API V2
+      summary: Request OTP for Password Update
+      description: Allows logged-in users to request OTP for password change
+      operationId: requestOtpForPasswordChange
+      responses:
+        "400":
+          description: Invalid Username
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /api/v2/auth/login:
+    post:
+      tags:
+      - Auth API V2
+      summary: User Login
+      description: Authenticates a user and returns an access token and refresh token.
+      operationId: login_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthRequest"
+        required: true
+      responses:
+        "200":
+          description: Successfully logged in
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "401":
+          description: Unauthorized - Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+  /api/v1/user/signup:
+    post:
+      tags:
+      - User Management
+      operationId: signup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignupRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+  /api/v1/user/login:
+    post:
+      tags:
+      - User Management
+      operationId: login_2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+  /api/v1/user/change-password:
+    post:
+      tags:
+      - User Management
+      summary: Change the user's password
+      description: Allows an authenticated user to change their password.
+      operationId: changePassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChangePasswordRequest"
+        required: true
+      responses:
+        "400":
+          description: "Bad request, incorrect or same password"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+        "401":
+          description: Unauthorized user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+        "200":
+          description: Password changed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+      deprecated: true
+  /api/v3/auth/protected:
+    get:
+      tags:
+      - auth
+      operationId: protectedEndpoint
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+  /api/v2/users:
+    get:
+      tags:
+      - user-controller-v-2
+      operationId: getUsers
+      parameters:
+      - name: pageNumber
+        in: query
+        description: Page number (0-based)
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+          description: Page number (0-based)
+          example: 0
+          minimum: 0
+        example: 0
+      - name: pageSize
+        in: query
+        description: Number of items per page
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+          description: Number of items per page
+          example: 10
+          maximum: 100
+          minimum: 1
+        example: 10
+      - name: sortDirection
+        in: query
+        description: Sort direction
+        required: false
+        schema:
+          type: string
+          default: ASC
+          description: Sort direction
+          enum:
+          - ASC
+          - DESC
+          example: ASC
+          pattern: ASC|DESC
+        example: ASC
+      - name: sortBy
+        in: query
+        description: Properties to sort by
+        required: false
+        schema:
+          type: array
+          default: id
+          description: Properties to sort by
+          example: id
+          items:
+            type: string
+            default: id
+            description: Properties to sort by
+            example: id
+          maxItems: 2147483647
+          minItems: 1
+        example: id
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedModel"
+  /api/v2/users/{id}:
+    get:
+      tags:
+      - user-controller-v-2
+      operationId: getUserById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserDto"
+  /api/v1/user/profile/{username}:
+    get:
+      tags:
+      - User Management
+      summary: Get User Profile
+      description: Get User Profile by username
+      operationId: getProfile
+      parameters:
+      - name: username
+        in: path
+        description: Username of the user
+        required: true
+        schema:
+          type: string
+        example: john
+      responses:
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+        "200":
+          description: Successfully retrieved user profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+components:
+  schemas:
+    ChangePasswordRequest:
+      type: object
+      description: Request to change password.
+      properties:
+        oldPassword:
+          type: string
+          format: password
+          description: Current password of the user
+          example: P@ssw0rd
+        newPassword:
+          type: string
+          format: password
+          description: New password to be set
+          example: newP@ssw0rd
+          maxLength: 20
+          minLength: 6
+        otp:
+          type: string
+          format: OTP
+          description: OTP for password change
+          example: 123456
+          maxLength: 6
+          minLength: 6
+      required:
+      - newPassword
+      - oldPassword
+      - otp
+    SuccessResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        data:
+          type: object
+    UserProfileRegisterDto:
+      type: object
+      properties:
+        publicId:
+          type: string
+          format: uuid
+        username:
+          type: string
+    ApiResponseUserProfileRegisterDto:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        data:
+          $ref: "#/components/schemas/UserProfileRegisterDto"
+        timestamp:
+          type: string
+          format: date-time
+    RegisterRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+    ApiResponseAuthUserDto:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        data:
+          $ref: "#/components/schemas/AuthUserDto"
+        timestamp:
+          type: string
+          format: date-time
+    AuthUserDto:
+      type: object
+      properties:
+        publicId:
+          type: string
+          format: uuid
+        username:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+          enum:
+          - USER
+          - ADMIN
+          - ACTUATOR
+          - SERVICE
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    AuthRequest:
+      type: object
+      description: Request body for user authentication.
+      properties:
+        username:
+          type: string
+          description: Username of the user.
+          example: john
+        password:
+          type: string
+          description: Password of the user.
+          example: P@ssw0rd
+      required:
+      - password
+      - username
+    LoginResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        tokenType:
+          type: string
+    ErrorResponse:
+      type: object
+      description: Model of error response
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        status:
+          type: integer
+          format: int32
+        error:
+          type: string
+        message:
+          type: string
+        path:
+          type: string
+    AuthResponse:
+      type: object
+      description: Authentication Response
+      properties:
+        accessToken:
+          type: string
+          description: Access Token
+          example: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        refreshToken:
+          type: string
+          description: Refresh Token
+          example: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        tokenType:
+          type: string
+          description: Token Type
+          example: Bearer
+        expiresIn:
+          type: integer
+          format: int64
+          description: Token Expiration Time
+          example: 3600
+        message:
+          type: string
+          description: Message
+          example: Successfully logged in
+    ErrorDto:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+          format: int32
+        reason:
+          type: string
+    SignupRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+        gender:
+          type: string
+        password:
+          type: string
+    LoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          description: Username of the user
+          example: user123
+        password:
+          type: string
+          description: Password of the user
+          example: password123
+    PageMetadata:
+      type: object
+      properties:
+        size:
+          type: integer
+          format: int64
+        number:
+          type: integer
+          format: int64
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64
+    PagedModel:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            type: object
+        page:
+          $ref: "#/components/schemas/PageMetadata"
+    UserDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        email:
+          type: string
+        dateOfBirth:
+          type: string
+        gender:
+          type: string
+        city:
+          type: string
+        bio:
+          type: string
+        college:
+          type: string
+        linkedIn:
+          type: string
+        gitHub:
+          type: string
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

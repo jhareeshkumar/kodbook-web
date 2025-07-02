@@ -1,0 +1,56 @@
+<div class="sign-up-container">
+  <p-card
+    header="Sign Up"
+    subheader="Please Sign Up to KodBook Social Media Web App"
+    class="sign-up-card"
+  >
+    <div class="sign-up-form">
+      <form [formGroup]="signUpForm" (submit)="onSignUp()">
+        <div class="form-field">
+          <app-text-input
+            [label]="'Username'"
+            [control]="signUpForm.controls['username']"
+            [autocomplete]="'username'"
+            [id]="'username'"
+          >
+          </app-text-input>
+        </div>
+
+        <div class="form-field">
+          <app-text-input
+            [label]="'Email'"
+            [control]="signUpForm.controls['email']"
+            [autocomplete]="'email'"
+            [id]="'email'"
+          >
+          </app-text-input>
+        </div>
+        <div class="form-field">
+          <app-password-input
+            [control]="signUpForm.controls['password']"
+            [showClear]="true"
+            [autocomplete]="'new-password'"
+            [id]="'password'"
+            [feedback]="true"
+          >
+          </app-password-input>
+        </div>
+        <div class="form-button">
+          <app-base-button
+            [icon]="'pi pi-user'"
+            [label]="'Sign Up'"
+            [type]="'submit'"
+            [fluid]="true"
+          >
+          </app-base-button>
+          <div class="sign-up-footer">
+            <p-divider>
+              <span>Already have an account? </span>
+              <a routerLink="/auth/login">Login</a>
+            </p-divider>
+          </div>
+        </div>
+      </form>
+    </div>
+  </p-card>
+</div>
